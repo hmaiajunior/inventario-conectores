@@ -12,10 +12,10 @@ def load_kafdrop_addresses(file_name):
         print(f"Erro: Arquivo '{file_name}' não encontrado.")
         return []
 
-# Função para obter informações de um Kafdrop
+# Função para obter informações de um Kafdrop ignorando a validação do certificado
 def get_kafdrop_info(url):
     try:
-        response = requests.get(f"{url}/api/kafka")
+        response = requests.get(f"{url}/api/kafka", verify=False)  # Ignorando certificado SSL
         if response.status_code == 200:
             data = response.json()
             return data.get("totalTopics", 0), data.get("totalPartitions", 0)
